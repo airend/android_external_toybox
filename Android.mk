@@ -219,6 +219,10 @@ toybox_sha := $(shell git -C $(LOCAL_PATH) rev-parse --short=12 HEAD 2>/dev/null
 toybox_version := $(toybox_upstream_version)-$(toybox_sha)-android
 LOCAL_CFLAGS += -DTOYBOX_VERSION='"$(toybox_version)"'
 
+ifeq ($(KERNEL_HAS_FINIT_MODULE),false)
+LOCAL_CFLAGS += -DNO_FINIT_MODULE
+endif
+
 LOCAL_CLANG := true
 
 LOCAL_SHARED_LIBRARIES := libcutils libselinux
